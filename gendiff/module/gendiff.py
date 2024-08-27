@@ -9,8 +9,8 @@ def generate_diff(file_path1, file_path2):
     remove = {key: value for key, value in dict1.items() - dict2.items()}
     union = {key: value for key, value in dict1.items() & dict2.items()}
 
-
     diff = add | remove | union
+
     # string = str(map(f"\n{key}: {value}", add))
     # for items in dict1.keys() | dict2.keys():
     #     key, value = 
