@@ -10,7 +10,6 @@ def main():
     parser.add_argument("file2", help='second_file')
     parser.add_argument("-f", "--format", help="set format of output")
     args = parser.parse_args()
-    # gendiff('gendiff/path/file1.json', 'gendiff/path/file2.json')
     print(gendiff(args.file1, args.file2))
 
 
