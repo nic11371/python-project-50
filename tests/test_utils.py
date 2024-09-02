@@ -34,6 +34,7 @@ def get_expected_result():
 
 @pytest.mark.parametrize('file1_name, file2_name, out', [
     ('file1.json', 'file2.json', 'except_result_diff.txt'),
+    ('file1.json', 'file3.json', 'except_result_json.txt'),
 ])
 def test_generate_diff(file1_name, file2_name, out):
     file1_path = get_file_path(file1_name)
