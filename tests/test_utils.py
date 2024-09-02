@@ -5,9 +5,13 @@ from gendiff.library.gendiff import generate_diff
 
 
 def read_file(file_name):
-    fixture_path = os.path.join('tstst', 'fixtures', f'{file_name}')
+    fixture_path = os.path.join('tests', 'fixtures', f'{file_name}')
     with open(fixture_path) as file:
         return file.read()
+
+
+def get_file_path(filename):
+    return os.path.join('tests', 'fixtures', filename)
 
 
 def get_input_data(file_name):
@@ -28,11 +32,14 @@ def get_expected_result():
     return get_expected_data('except_result_json.txt')
 
 
-# def test_generate_diff(file_1, file_2, format):
-#     file1_path = read_file(file_1)
-#     file2_path = read_file(file_2)
-#     expected_result = get_expected_data(f'exp_{format}.txt')
+@pytest.mark.parametrize('file1_name, file2_name, out', [
+    ('file1.json', 'file2.json', 'except_result_diff.txt'),
+])
+def test_generate_diff(file1_name, file2_name, out):
+    file1_path = get_file_path(file1_name)
+    file2_path = get_file_path(file2_name)
+    expected_result = get_expected_data(out)
 
-#     actual_result = generate_diff(file1_path, file2_path, format)
+    actual_result = generate_diff(file1_path, file2_path)
 
-#     assert actual_result == expected_result
+    assert actual_result == expected_result
