@@ -22,7 +22,7 @@ lint:
 check:
 	poetry run flake8 gendiff
 
-test-cov:
+test-coverage:
 	poetry run coverage run -m pytest
 
 test:
