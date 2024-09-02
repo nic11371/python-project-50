@@ -24,3 +24,6 @@ check:
 
 test-cov:
 	poetry run coverage run -m pytest
+
+test:
+	poetry run pytest
