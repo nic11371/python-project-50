@@ -1,24 +1,25 @@
+from gendiff.modules.parser import parser
 import json
-import itertools
+import yaml
+import os
 
 
-def transform(value):
-    return str(value).lower() if isinstance(value, bool) else value
+def open_json(file1, file2):
+    parser(json.load(open(file1)), json.load(open(file2)))
 
 
-def generate_diff(file_path1, file_path2):
-    dict1 = json.load(open(file_path1))
-    dict2 = json.load(open(file_path2))
-
-    add = [f"  + {key}: {transform(value)}"
-           for key, value in dict2.items() - dict1.items()]
-    remove = [f"  - {key}: {transform(value)}"
-              for key, value in dict1.items() - dict2.items()]
-    union = [f"    {key}: {transform(value)}"
-             for key, value in dict2.items() & dict1.items()]
-    result = remove + add + union
-    f = list(itertools.chain('{', sorted(result, key=lambda s: s[4]), '}'))
-    return '\n'.join(f)
+def open_yaml(file1, file2):
+    parser(yaml.load(open(file1)), yaml.load(open(file2)))
 
 
-print(generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file3.json'))
+def generate_diff(file_name1, file_name2):
+    extension_file1 = os.path.splitext(file_name1)[1]
+    extension_file2 = os.path.splitext(file_name2)[1]
+    if extension_file1 == 'json' and extension_file2 == 'json':
+        open_json(file_name1, file_name2)
+    elif extension_file1 == 'yaml' and extension_file2 == 'yaml':
+        open_yaml(file_name1, file_name2)
+    elif extension_file1 == 'yml' and extension_file2 == 'yml':
+        open_yaml(file_name1, file_name2)
+    else:
+        print("Error")
