@@ -239,6 +239,37 @@ pytest = ">=4.6"
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
+name = "python-i18n"
+version = "0.3.9"
+description = "Translation library for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-i18n-0.3.9.tar.gz", hash = "sha256:df97f3d2364bf3a7ebfbd6cbefe8e45483468e52a9e30b909c6078f5f471e4e8"},
+    {file = "python_i18n-0.3.9-py3-none-any.whl", hash = "sha256:bda5b8d889ebd51973e22e53746417bd32783c9bd6780fd27cadbb733915651d"},
+]
+
+[package.dependencies]
+pyyaml = {version = ">=3.10", optional = true, markers = "extra == \"yaml\""}
+
+[package.extras]
+yaml = ["pyyaml (>=3.10)"]
+
+[[package]]
+name = "PyYAML"
+version = "6.0.2"
+description = "YAML parser and emitter for Python"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "PyYAML-6.0.2-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8b9c7197f7cb2738065c481a0461e50ad02f18c78cd75775628afb4d7137fb3b"},
+]
+
+[package.source]
+type = "file"
+url = "PyYAML-6.0.2-cp312-cp312-musllinux_1_1_x86_64.whl"
+
+[[package]]
 name = "tomli"
 version = "2.0.1"
 description = "A lil' TOML parser"
@@ -252,4 +283,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "dfedeec67868076216e7bb4a69f2af3e365bc23190a361d52c7259b1146c4706"
+content-hash = "a1536891524a7e7065e3ae328502c4a9f1fc0e0c53646c520591d5c5f00469e2"

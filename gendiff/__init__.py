@@ -1,8 +1,8 @@
-from gendiff.library.gendiff import generate_diff
-from gendiff.modules.parser import parser
+from gendiff.gendiff import generate_diff
+from gendiff.parse import parser_data
 
 
 __all__ = (
     'generate_diff',
-    'parser'
+    'parser_data'
 )

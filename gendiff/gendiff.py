@@ -1,15 +1,15 @@
-from gendiff.modules.parser import parser
 import json
 import yaml
 import os
+from gendiff.parse import parse
 
 
 def open_json(file1, file2):
-    parser(json.load(open(file1)), json.load(open(file2)))
+    parse(json.load(open(file1)), json.load(open(file2)))
 
 
 def open_yaml(file1, file2):
-    parser(yaml.load(open(file1)), yaml.load(open(file2)))
+    parse(yaml.load(open(file1)), yaml.load(open(file2)))
 
 
 def generate_diff(file_name1, file_name2):
@@ -23,3 +23,6 @@ def generate_diff(file_name1, file_name2):
         open_yaml(file_name1, file_name2)
     else:
         print("Error")
+
+
+print(generate_diff('tests/fixtures/file1.json', 'tests/fixtures/file3.json'))
