@@ -1,15 +1,15 @@
 import json
 import yaml
 import os
-from gendiff.parse import parse
+from gendiff.parse import parser_data
 
 
 def open_json(file1, file2):
-    parse(json.load(open(file1)), json.load(open(file2)))
+    parser_data(json.load(open(file1)), json.load(open(file2)))
 
 
 def open_yaml(file1, file2):
-    parse(yaml.load(open(file1)), yaml.load(open(file2)))
+    parser_data(yaml.load(open(file1)), yaml.load(open(file2)))
 
 
 def generate_diff(file_name1, file_name2):
