@@ -1,36 +1,32 @@
-import itertools
-
-
 def transform(value):
-    return str(value).lower() if isinstance(value, bool) else value
+    if value is None:
+        return 'null'
+    return str(value).lower() if isinstance(value, bool)else value
 
 
 def parser_data(file1, file2):
-    merge = [keys for keys in (file1, file2)]
-    return different(merge)
+    add = file2.keys() - file1.keys()
+    remove = file1.keys() - file2.keys()
+    union = file2.keys() | file1.keys()
 
+    differents = []
 
-def different(node):
+    for keys in union:
+        values1 = transform(file1.get(keys))
+        values2 = transform(file2.get(keys))
 
-    def walk(elem):
-        key, value = elem
-        if isinstance(value, dict):
-            return key, different(value)
-        return key, value
+        if keys in remove:
+            differents.append({keys: values1, 'action': 'remove'})
+        elif keys in add:
+            differents.append({keys: values2, 'action': 'add'})
+        elif isinstance(values1, dict) and isinstance(values2, dict):
+            differents.append(
+                {keys: parser_data(values1, values2), 'action': 'nested'})
+        elif values1 != values2:
+            differents.append({keys: values2, 'action': 'modified'})
+        else:
+            differents.append({keys: values1, 'action': 'uncharged'})
 
-    for elem in node:
-        key, value = walk(elem)
-        print(key, value)
+    sorted_diff = sorted(differents, key=keys)
 
-
-
-
-    # add = [f"  + {key}: {transform(value)}"
-    #        for key, value in file2.items() - file1.items()]
-    # remove = [f"  - {key}: {transform(value)}"
-    #           for key, value in file1.items() - file2.items()]
-    # union = [f"    {key}: {transform(value)}"
-    #          for key, value in file2.items() & file1.items()]
-    # result = remove + add + union
-    # f = list(itertools.chain('{', sorted(result, key=lambda s: s[4]), '}'))
-    # return '\n'.join(f)
+    return sorted_diff
