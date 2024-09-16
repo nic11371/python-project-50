@@ -17,8 +17,8 @@ def remove(key, value):
 def nested(key, value1, value2):
     return {
         'name': key,
+        'type': 'root',
         'children': parser_data(value1, value2),
-        'type': 'nested'
     }
 
 
