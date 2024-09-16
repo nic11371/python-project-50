@@ -2,7 +2,7 @@ def add(key, value):
     return {
         'name': key,
         'value': value,
-        'action': 'add'
+        'type': 'add'
     }
 
 
@@ -10,15 +10,15 @@ def remove(key, value):
     return {
         'name': key,
         'value': value,
-        'action': 'remove'
+        'type': 'remove'
     }
 
 
 def nested(key, value1, value2):
     return {
         'name': key,
-        'value': parser_data(value1, value2),
-        'action': 'nested'
+        'children': parser_data(value1, value2),
+        'type': 'nested'
     }
 
 
@@ -27,7 +27,7 @@ def modified(key, value1, value2):
         'name': key,
         'old_value': value1,
         'new_value': value2,
-        'action': 'modified'
+        'type': 'modified'
     }
 
 
@@ -35,7 +35,7 @@ def unchanged(key, value):
     return {
         'name': key,
         'value': value,
-        'action': 'uncharged'
+        'type': 'uncharged'
     }
 
 
@@ -48,7 +48,7 @@ def transform_type(value):
 def parser_data(file1, file2):
     diff_add = file2.keys() - file1.keys()
     diff_remove = file1.keys() - file2.keys()
-    union = file2.keys() | file1.keys()
+    union = sorted(file2.keys() | file1.keys())
 
     differents = []
 

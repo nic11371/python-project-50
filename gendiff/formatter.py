@@ -1,8 +1,8 @@
 import itertools
 
 
-def stylish(diff, space=" ", count=1):
+def stylish(diff):
     dictionary = {}
     for elem in diff:
-        dictionary = elem
+        dictionary[elem['name']] = elem
     return dictionary
