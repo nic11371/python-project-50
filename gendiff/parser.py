@@ -1,37 +1,42 @@
 def add(key, value):
-    return {key: {
+    return {
+        'name': key,
         'value': value,
         'action': 'add'
-    }}
+    }
 
 
 def remove(key, value):
-    return {key: {
+    return {
+        'name': key,
         'value': value,
         'action': 'remove'
-    }}
+    }
 
 
 def nested(key, value1, value2):
-    return {key: {
+    return {
+        'name': key,
         'value': parser_data(value1, value2),
         'action': 'nested'
-    }}
+    }
 
 
 def modified(key, value1, value2):
-    return {key: {
+    return {
+        'name': key,
         'old_value': value1,
         'new_value': value2,
         'action': 'modified'
-    }}
+    }
 
 
 def unchanged(key, value):
-    return {key: {
+    return {
+        'name': key,
         'value': value,
         'action': 'uncharged'
-    }}
+    }
 
 
 def transform_type(value):
@@ -45,23 +50,23 @@ def parser_data(file1, file2):
     diff_remove = file1.keys() - file2.keys()
     union = file2.keys() | file1.keys()
 
-    differents = {}
+    differents = []
 
     for keys in union:
         values1 = transform_type(file1.get(keys))
         values2 = transform_type(file2.get(keys))
 
         if keys in diff_remove:
-            differents |= remove(keys, values1)
+            differents.append(remove(keys, values1))
         elif keys in diff_add:
-            differents |= add(keys, values2)
+            differents.append(add(keys, values2))
         elif isinstance(values1, dict) and isinstance(values2, dict):
-            differents |= nested(keys, values1, values2)
+            differents.append(nested(keys, values1, values2))
         elif values1 != values2:
-            differents |= modified(keys, values1, values2)
+            differents.append(modified(keys, values1, values2))
         else:
-            differents |= unchanged(keys, values1)
+            differents.append(unchanged(keys, values1))
 
-    sorted_diff = dict(sorted(differents.items()))
+    sorted_diff = sorted(differents, key=lambda x: x['name'])
 
     return sorted_diff
