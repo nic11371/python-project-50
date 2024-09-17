@@ -2,11 +2,9 @@ import itertools
 
 
 def stylish(diff):
-    list_diff = []
-    for elem in diff:
-        # key = elem['name']
-        # type = elem['type']
-        # list_diff.append(f"{type} {key}: ")
-        for keys, values in elem.items():
-            list_diff.append(f"{keys}: {values} ")
-    return list_diff
+    list_dict = []
+    for key, value in diff.items():
+        if isinstance(key, dict):
+            list_dict.append(f"{key}: {stylish(value)}")
+    return list_dict
+    

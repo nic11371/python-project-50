@@ -17,7 +17,7 @@ def remove(key, value):
 def nested(key, value1, value2):
     return {
         'name': key,
-        'type': 'root',
+        'type': 'nested',
         'children': parser_data(value1, value2),
     }
 
@@ -67,6 +67,9 @@ def parser_data(file1, file2):
         else:
             differents.append(unchanged(keys, values1))
 
-    sorted_diff = sorted(differents, key=lambda x: x['name'])
+    sorted_diff = {
+        'type': 'root',
+        'children': sorted(differents, key=lambda x: x['name'])
+    }
 
     return sorted_diff
