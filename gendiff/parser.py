@@ -67,9 +67,6 @@ def parser_data(file1, file2):
         else:
             differents.append(unchanged(keys, values1))
 
-    sorted_diff = {
-        'type': 'root',
-        'children': sorted(differents, key=lambda x: x['name'])
-    }
+    sorted_diff = sorted(differents, key=lambda x: x['name'])
 
     return sorted_diff

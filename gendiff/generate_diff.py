@@ -4,12 +4,20 @@ import os
 from gendiff.parser import parser_data
 
 
+def parse_wrapper(file1, file2):
+    return {
+        'name': 'main',
+        'type': 'root',
+        'children': parser_data(file1, file2)
+    }
+
+
 def open_json(file1, file2):
-    return parser_data(json.load(open(file1)), json.load(open(file2)))
+    return parse_wrapper(json.load(open(file1)), json.load(open(file2)))
 
 
 def open_yaml(file1, file2):
-    return parser_data(yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
+    return parse_wrapper(yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
 
 
 def generate_diff(file_name1, file_name2):
