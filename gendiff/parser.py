@@ -39,12 +39,6 @@ def unchanged(key, value):
     }
 
 
-def transform_type(value):
-    if value is None:
-        return 'null'
-    return str(value).lower() if isinstance(value, bool)else value
-
-
 def parser_data(file1, file2):
     diff_add = file2.keys() - file1.keys()
     diff_remove = file1.keys() - file2.keys()
@@ -53,8 +47,8 @@ def parser_data(file1, file2):
     differents = []
 
     for keys in union:
-        values1 = transform_type(file1.get(keys))
-        values2 = transform_type(file2.get(keys))
+        values1 = file1.get(keys)
+        values2 = file2.get(keys)
 
         if keys in diff_remove:
             differents.append(remove(keys, values1))

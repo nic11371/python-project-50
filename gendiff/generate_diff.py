@@ -17,7 +17,8 @@ def open_json(file1, file2):
 
 
 def open_yaml(file1, file2):
-    return parse_wrapper(yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
+    return parse_wrapper(
+        yaml.safe_load(open(file1)), yaml.safe_load(open(file2)))
 
 
 def generate_diff(file_name1, file_name2):
