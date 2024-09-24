@@ -29,7 +29,7 @@ def input_diff():
 
 @pytest.fixture
 def get_expected_result():
-    return get_expected_data('except_result_json.txt')
+    return get_expected_data('except_result_diff.txt')
 
 
 @pytest.mark.parametrize('file1_name, file2_name, out', [
