@@ -2,7 +2,7 @@ import json
 import yaml
 import os
 from gendiff.parser import parser_data
-from gendiff.formatter import stylish
+from gendiff.format.choice_format import format
 
 
 def parse_wrapper(file1, file2):
@@ -33,10 +33,6 @@ def extension(file_name1, file_name2):
         return open_yaml(file_name1, file_name2)
     else:
         return "Error. Not found such format"
-
-
-def format(data, format_name='stylish'):
-    return stylish(data)
 
 
 def generate_diff(file_name1, file_name2, format_name='stylish'):
