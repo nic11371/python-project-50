@@ -1,6 +1,8 @@
-from gendiff.formatter import stylish
-# from gendiff.formatter import plain
+from gendiff.format.stylish import stylish
+from gendiff.format.plain import plain
 
 
-def format(data, format_name='stylish'):
+def choice_format(data, format_name='stylish'):
+    if format_name == 'plain':
+        return plain(data)
     return stylish(data)

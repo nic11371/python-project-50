@@ -2,7 +2,7 @@ import json
 import yaml
 import os
 from gendiff.parser import parser_data
-from gendiff.format.choice_format import format
+from gendiff.format.choice_format import choice_format
 
 
 def parse_wrapper(file1, file2):
@@ -37,4 +37,4 @@ def extension(file_name1, file_name2):
 
 def generate_diff(file_name1, file_name2, format_name='stylish'):
     data = extension(file_name1, file_name2)
-    return format(data, format_name)
+    return choice_format(data, format_name)
