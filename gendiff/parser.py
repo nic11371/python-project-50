@@ -35,7 +35,7 @@ def unchanged(key, value):
     return {
         'name': key,
         'value': value,
-        'type': 'uncharged'
+        'type': 'unchanged'
     }
 
 

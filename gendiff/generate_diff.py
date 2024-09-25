@@ -36,11 +36,9 @@ def extension(file_name1, file_name2):
 
 
 def format(data, format_name='stylish'):
-    if format_name == 'stylish':
-        return stylish(data)
+    return stylish(data)
 
 
 def generate_diff(file_name1, file_name2, format_name='stylish'):
     data = extension(file_name1, file_name2)
-    format(data, format_name)
-    return data
+    return format(data, format_name)

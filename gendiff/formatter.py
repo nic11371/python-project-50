@@ -1,7 +1,7 @@
 OLD = '- '
 NEW = '+ '
-UNCHARGED = '  '
-SEPARATOR = ' '
+UNCHANGED = '  '
+SEPARATOR = " "
 
 
 def stylish(diff, depth=2):
@@ -13,18 +13,18 @@ def stylish(diff, depth=2):
         type = elem.get('type')
         value = elem.get('value')
         if type == 'add':
-            lists.append(f"{space}{NEW}{key}: {to_string(value, depth)}")
+            lists.append(f"{space}{NEW}{key}: {to_string(value)}")
         if type == 'remove':
-            lists.append(f"{space}{OLD}{key}: {to_string(value, depth)}")
-        if type == 'uncharged':
-            lists.append(f"{space}{UNCHARGED}{key}: {to_string(value, depth)}")
+            lists.append(f"{space}{OLD}{key}: {to_string(value)}")
+        if type == 'unchanged':
+            lists.append(f"{space}{UNCHANGED}{key}: {to_string(value)}")
         if type == 'nested':
-            lists.append(f"{space}{UNCHARGED}{key}: {stylish(elem, depth + 4)}")
+            lists.append(f"{space}{UNCHANGED}{key}: {stylish(elem, depth + 4)}")
         if type == 'modified':
             lists.append(
-                f"{space}{OLD}{key}: {to_string(elem.get('old_value'), depth)}")
+                f"{space}{OLD}{key}: {to_string(elem.get('old_value'))}")
             lists.append(
-                f"{space}{NEW}{key}: {to_string(elem.get('new_value'), depth)}")
+                f"{space}{NEW}{key}: {to_string(elem.get('new_value'))}")
     format = "\n".join(lists)
     end_space = SEPARATOR * (depth - 2)
 
@@ -41,7 +41,7 @@ def to_string(item, depth=2):
         space = SEPARATOR * (depth + 4)
         for key, val in item.items():
             format = to_string(val, depth + 4)
-            lists.append(f"{space}{UNCHARGED}{key}: {format}")
+            lists.append(f"{space}{UNCHANGED}{key}: {format}")
         format = "\n".join(lists)
         end_space = SEPARATOR * (depth + 2)
         return f"{{\n{format}\n{end_space}}}"
