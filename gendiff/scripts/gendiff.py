@@ -12,9 +12,6 @@ def main():
     parser.add_argument("-f", "--format", help="set format of output")
     args = parser.parse_args()
     different = gendiff(args.file1, args.file2)
-    style = stylish(different)
-    f = open('tests/fixtures/1.txt', 'w')
-    f.write(style)
     print(stylish(different))
 
 
