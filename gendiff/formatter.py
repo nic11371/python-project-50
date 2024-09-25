@@ -4,7 +4,6 @@ UNCHARGED = '  '
 SEPARATOR = ' '
 
 
-
 def stylish(diff, depth=2):
     space = depth * SEPARATOR
     lists = []
@@ -22,8 +21,10 @@ def stylish(diff, depth=2):
         if type == 'nested':
             lists.append(f"{space}{UNCHARGED}{key}: {stylish(elem, depth + 4)}")
         if type == 'modified':
-            lists.append(f"{space}{OLD}{key}: {to_string(elem.get('old_value'), depth)}")
-            lists.append(f"{space}{NEW}{key}: {to_string(elem.get('new_value'), depth)}")
+            lists.append(
+                f"{space}{OLD}{key}: {to_string(elem.get('old_value'), depth)}")
+            lists.append(
+                f"{space}{NEW}{key}: {to_string(elem.get('new_value'), depth)}")
     format = "\n".join(lists)
     end_space = SEPARATOR * (depth - 2)
 
