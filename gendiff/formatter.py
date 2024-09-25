@@ -13,18 +13,18 @@ def stylish(diff, depth=2):
         type = elem.get('type')
         value = elem.get('value')
         if type == 'add':
-            lists.append(f"{space}{NEW}{key}: {to_string(value)}")
+            lists.append(f"{space}{NEW}{key}: {to_string(value, depth)}")
         if type == 'remove':
-            lists.append(f"{space}{OLD}{key}: {to_string(value)}")
+            lists.append(f"{space}{OLD}{key}: {to_string(value, depth)}")
         if type == 'unchanged':
-            lists.append(f"{space}{UNCHANGED}{key}: {to_string(value)}")
+            lists.append(f"{space}{UNCHANGED}{key}: {to_string(value, depth)}")
         if type == 'nested':
             lists.append(f"{space}{UNCHANGED}{key}: {stylish(elem, depth + 4)}")
         if type == 'modified':
             lists.append(
-                f"{space}{OLD}{key}: {to_string(elem.get('old_value'))}")
+                f"{space}{OLD}{key}: {to_string(elem.get('old_value'), depth)}")
             lists.append(
-                f"{space}{NEW}{key}: {to_string(elem.get('new_value'))}")
+                f"{space}{NEW}{key}: {to_string(elem.get('new_value'), depth)}")
     format = "\n".join(lists)
     end_space = SEPARATOR * (depth - 2)
 
