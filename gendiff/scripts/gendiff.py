@@ -8,9 +8,11 @@ def main():
         description='Compares two configuration files and shows a difference.')
     parser.add_argument("file1", help='first_file')
     parser.add_argument("file2", help='second_file')
-    parser.add_argument("-f", "--format", help="set format of output")
+    parser.add_argument(
+        "-f", "--format", help="set format of output")
+    parser.set_defaults(format='stylish')
     args = parser.parse_args()
-    different = gendiff(args.file1, args.file2)
+    different = gendiff(args.file1, args.file2, args.format)
     print(different)
 
 

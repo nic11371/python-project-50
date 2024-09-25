@@ -3,3 +3,4 @@ dist/
 .venv/
 gendiff.cast
 yaml.cast
+stylish.cast
