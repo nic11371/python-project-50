@@ -1,6 +1,5 @@
 def plain(diff, depth=2):
     lists = []
-    paths = []
     children = diff.get('children')
     for elem in children:
         key = elem.get('name')
@@ -31,7 +30,7 @@ def to_string(item, depth=2):
     if isinstance(item, dict):
         for key, val in item.items():
             # format = to_string(val, depth)
-            lists.append(f"[complex value]")
+            lists.append("")
         format = "\n".join(lists)
         return f"{format}"
     return f"{item}"
