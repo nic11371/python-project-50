@@ -45,6 +45,12 @@ def get_expected_result():
     ('file1.json', 'file3.json', 'except_result_plain.txt', 'plain'),
     ('file1.yaml', 'file3.yaml', 'except_result_plain.txt', 'plain'),
     ('file1.yml', 'file3.yml', 'except_result_plain.txt', 'plain'),
+    ('file1.json', 'file2.json', 'except_result_diff_json.txt', 'json'),
+    ('file1.yaml', 'file2.yaml', 'except_result_diff_json.txt', 'json'),
+    ('file1.yml', 'file2.yml', 'except_result_diff_json.txt', 'json'),
+    ('file1.json', 'file3.json', 'except_result_json.txt', 'json'),
+    ('file1.yaml', 'file3.yaml', 'except_result_json.txt', 'json'),
+    ('file1.yml', 'file3.yml', 'except_result_json.txt', 'json'),
 ])
 def test_generate_diff(file1_name, file2_name, out, format):
     file1_path = get_file_path(file1_name)
