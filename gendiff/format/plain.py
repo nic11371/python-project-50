@@ -1,36 +1,33 @@
-def plain(diff, depth=2):
+def plain(diff, path=''):
     lists = []
     children = diff.get('children')
     for elem in children:
         key = elem.get('name')
         type = elem.get('type')
-        value = elem.get('value')
-        new = to_string(elem.get('new_value'))
-        old = to_string(elem.get('old_value'))
+        value = to_str(elem.get('value'))
+        new = to_str(elem.get('new_value'))
+        old = to_str(elem.get('old_value'))
+        cur_path = f"{path}.{key}" if path else key
         if type == 'add':
-            lists.append(f"{key} was added with value: {to_string(value)}")
+            lists.append(
+                f"Property '{cur_path}' was added with value: {value}")
         if type == 'remove':
-            lists.append(f"{key} was removed")
+            lists.append(f"Property '{cur_path}' was removed")
         if type == 'nested':
-            lists.append(f"{key}.{plain(elem, depth)}")
+            lists.append(f"{plain(elem, cur_path)}")
         if type == 'modified':
             lists.append(
-                f"{key} was updated. From {old} to {new}")
+                f"Property '{cur_path}' was updated. From {old} to {new}")
     format = "\n".join(lists)
 
     return f"{format}"
 
 
-def to_string(item, depth=2):
-    lists = []
+def to_str(item):
     if item is None:
         return 'null'
     if isinstance(item, bool):
         return str(item).lower()
-    if isinstance(item, dict):
-        for key, val in item.items():
-            # format = to_string(val, depth)
-            lists.append("")
-        format = "\n".join(lists)
-        return f"{format}"
-    return f"{item}"
+    if isinstance(item, (dict, list)):
+        return '[complex value]'
+    return f"'{item}'"
