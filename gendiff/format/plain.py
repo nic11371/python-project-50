@@ -9,13 +9,15 @@ def make_plain(diff, path=''):
         old = to_str(_elem.get('old_value'))
         current_path = f"{path}.{key}" if path else key
         if type == 'add':
-            rows.append(f"Property '{current_path}' was added with value: {value}")
+            rows.append(
+                f"Property '{current_path}' was added with value: {value}")
         if type == 'remove':
             rows.append(f"Property '{current_path}' was removed")
         if type == 'nested':
             rows.append(f"{make_plain(_elem, current_path)}")
         if type == 'modified':
-            rows.append(f"Property '{current_path}' was updated. From {old} to {new}")
+            rows.append(
+                f"Property '{current_path}' was updated. From {old} to {new}")
     format = "\n".join(rows)
     return f"{format}"
 

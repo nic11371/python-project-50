@@ -13,5 +13,3 @@ def get_file_path(filename):
 
 def get_expected_data(file_name):
     return read_file(file_name)
-
-
