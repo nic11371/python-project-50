@@ -12,8 +12,8 @@ def main():
         "-f", "--format", help="set format of output")
     parser.set_defaults(format='stylish')
     args = parser.parse_args()
-    different = gendiff(args.file1, args.file2, args.format)
-    print(different)
+    output = gendiff(args.file1, args.file2, args.format)
+    print(output)
 
 
 if __name__ == '__main__':

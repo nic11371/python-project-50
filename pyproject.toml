@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "This program allow to find differents between both files"
 authors = ["nic11371 <nic11371@gmail.com>"]
 license = "nic11371"
 readme = "README.md"

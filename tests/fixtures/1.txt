@@ -1,9 +1,0 @@
-    "group4": {
-      "default": null,
-      "foo": 0,
-      "isNested": false,
-      "nest": {
-        "bar": ""
-      },
-      "type": "bas"
-    }

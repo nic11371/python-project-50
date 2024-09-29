@@ -1,48 +1,47 @@
 OLD = '- '
 NEW = '+ '
-UNCHANGED = '  '
+EMPTY = '  '
 SEPARATOR = " "
 
 
-def stylish(diff, depth=2):
+def make_stylish(performance, depth=2):
     space = depth * SEPARATOR
-    lists = []
-    children = diff.get('children')
-    for elem in children:
-        key = elem.get('name')
-        type = elem.get('type')
-        value = elem.get('value')
-        if type == 'add':
-            lists.append(f"{space}{NEW}{key}: {to_string(value, depth)}")
-        if type == 'remove':
-            lists.append(f"{space}{OLD}{key}: {to_string(value, depth)}")
-        if type == 'unchanged':
-            lists.append(f"{space}{UNCHANGED}{key}: {to_string(value, depth)}")
+    tree = []
+    children = performance.get('children')
+    for _elem in children:
+        key = _elem.get('name')
+        type = _elem.get('type')
+        value = _elem.get('value')
+        string = to_str(value, depth)
+        old = to_str(_elem.get('old_value'), depth)
+        new = to_str(_elem.get('new_value'), depth)
+        if type == 'add': tree.append(f"{space}{NEW}{key}: {string}")
+        if type == 'remove': tree.append(f"{space}{OLD}{key}: {string}")
+        if type == 'unchanged': tree.append(f"{space}{EMPTY}{key}: {string}")
         if type == 'nested':
-            lists.append(f"{space}{UNCHANGED}{key}: {stylish(elem, depth + 4)}")
+            tree.append(f"{space}{EMPTY}{key}: {make_stylish(_elem, depth + 4)}")
         if type == 'modified':
-            lists.append(
-                f"{space}{OLD}{key}: {to_string(elem.get('old_value'), depth)}")
-            lists.append(
-                f"{space}{NEW}{key}: {to_string(elem.get('new_value'), depth)}")
-    format = "\n".join(lists)
+            tree.append(f"{space}{OLD}{key}: {old}")
+            tree.append(f"{space}{NEW}{key}: {new}")
+    format = "\n".join(tree)
     end_space = SEPARATOR * (depth - 2)
-
     return f"{{\n{format}\n{end_space}}}"
 
 
-def to_string(item, depth=2):
-    lists = []
-    if item is None:
+def to_str(value, depth=2):
+    rows = []
+    if value is None:
         return 'null'
-    if isinstance(item, bool):
-        return str(item).lower()
-    if isinstance(item, dict):
+    if isinstance(value, bool):
+        return str(value).lower()
+    if isinstance(value, int):
+        return value
+    if isinstance(value, dict):
         space = SEPARATOR * (depth + 4)
-        for key, val in item.items():
-            format = to_string(val, depth + 4)
-            lists.append(f"{space}{UNCHANGED}{key}: {format}")
-        format = "\n".join(lists)
+        for _key, _row in value.items():
+            format = to_str(_row, depth + 4)
+            rows.append(f"{space}{EMPTY}{_key}: {format}")
+        format = "\n".join(rows)
         end_space = SEPARATOR * (depth + 2)
         return f"{{\n{format}\n{end_space}}}"
-    return f"{item}"
+    return f"{value}"

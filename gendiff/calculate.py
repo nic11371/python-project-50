@@ -1,4 +1,4 @@
-def add(key, value):
+def added(key, value):
     return {
         'name': key,
         'value': value,
@@ -6,7 +6,7 @@ def add(key, value):
     }
 
 
-def remove(key, value):
+def removed(key, value):
     return {
         'name': key,
         'value': value,
@@ -18,7 +18,7 @@ def nested(key, value1, value2):
     return {
         'name': key,
         'type': 'nested',
-        'children': parser_data(value1, value2),
+        'children': calculate_diff(value1, value2),
     }
 
 
@@ -39,27 +39,27 @@ def unchanged(key, value):
     }
 
 
-def parser_data(file1, file2):
+def calculate_diff(file1, file2):
     diff_add = file2.keys() - file1.keys()
     diff_remove = file1.keys() - file2.keys()
-    union = sorted(file2.keys() | file1.keys())
+    union_keys = sorted(file2.keys() | file1.keys())
 
     differents = []
 
-    for keys in union:
-        values1 = file1.get(keys)
-        values2 = file2.get(keys)
+    for _key in union_keys:
+        _value1 = file1.get(_key)
+        _value2 = file2.get(_key)
 
-        if keys in diff_remove:
-            differents.append(remove(keys, values1))
-        elif keys in diff_add:
-            differents.append(add(keys, values2))
-        elif isinstance(values1, dict) and isinstance(values2, dict):
-            differents.append(nested(keys, values1, values2))
-        elif values1 != values2:
-            differents.append(modified(keys, values1, values2))
+        if _key in diff_remove:
+            differents.append(removed(_key, _value1))
+        elif _key in diff_add:
+            differents.append(added(_key, _value2))
+        elif isinstance(_value1, dict) and isinstance(_value2, dict):
+            differents.append(nested(_key, _value1, _value2))
+        elif _value1 != _value2:
+            differents.append(modified(_key, _value1, _value2))
         else:
-            differents.append(unchanged(keys, values1))
+            differents.append(unchanged(_key, _value1))
 
     sorted_diff = sorted(differents, key=lambda x: x['name'])
 
