@@ -1,5 +1,5 @@
 import pytest
-from tests.format import format_diff
+from tests.format import formated
 
 
 @pytest.mark.parametrize('file1_name, file2_name, out, format', [
@@ -11,5 +11,5 @@ from tests.format import format_diff
     ('file1.yml', 'file3.yml', 'except_result_plain.txt', 'plain'),
 ])
 def test_plain(file1_name, file2_name, out, format):
-    actual, expected = format_diff(file1_name, file2_name, out, format)
+    actual, expected = formated(file1_name, file2_name, out, format)
     assert actual == expected
