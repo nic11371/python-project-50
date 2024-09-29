@@ -1,6 +1,6 @@
 from gendiff.format.stylish import stylish
 from gendiff.format.plain import plain
-from gendiff.format.json import make_json
+from gendiff.format.format_json import make_json
 
 
 def choice_format(data, format_name='stylish'):
