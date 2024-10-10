@@ -11,4 +11,4 @@ from tests.format import formated
 ])
 def test_json(file1_name, file2_name, out, format):
     actual, expected = formated(file1_name, file2_name, out, format)
-    assert not actual == expected
+    assert actual == expected

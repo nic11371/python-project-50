@@ -64,3 +64,11 @@ def calculate_diff(file1, file2):
     sorted_diff = sorted(differents, key=lambda x: x['name'])
 
     return sorted_diff
+
+
+def build_root(file1, file2):
+    return {
+        'name': 'main',
+        'type': 'root',
+        'children': calculate_diff(file1, file2)
+    }
