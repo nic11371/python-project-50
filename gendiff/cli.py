@@ -1,7 +1,7 @@
 import argparse
 
 
-def print_invitation():    
+def print_invitation():
     parser = argparse.ArgumentParser(
         description='Compares two configuration files and shows a difference.')
     parser.add_argument("file1", help='first_file')
