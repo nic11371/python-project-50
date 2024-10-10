@@ -1,6 +1,11 @@
 __pycache__/
 dist/
 .venv/
+.github/
+.idea/
+.vscode/
+.coverage
+coverage.xml
 gendiff.cast
 yaml.cast
 stylish.cast
