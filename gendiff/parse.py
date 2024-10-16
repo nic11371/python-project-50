@@ -1,6 +1,7 @@
 import json
 import yaml
 import os
+from gendiff.exception import FormatError
 
 
 def get_data(path):
@@ -16,4 +17,4 @@ def parse(data, format):
     elif format in ['.yaml', '.yml']:
         return yaml.safe_load(data)
     else:
-        raise ValueError(f"Not found such format: {format}")
+        raise FormatError("Not found such extension")
