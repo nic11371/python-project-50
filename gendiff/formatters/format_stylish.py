@@ -1,38 +1,42 @@
-OLD = '- '
-NEW = '+ '
-EMPTY = '  '
-SEPARATOR = " "
+def make_ident(depth):
+    return depth * " "
 
 
-def make_stylish(performance, depth=2):
-    space = depth * SEPARATOR
+def make_stylish(performance, depth=0):
+    ident_size = depth + 1
+    ident = ident_size * 4 - 2
+    deep_ident = " " * ident
+    end_ident = " " * (ident - 2)
     tree = []
     children = performance.get('children')
     for _elem in children:
         key = _elem.get('name')
         type = _elem.get('type')
         value = _elem.get('value')
-        string = to_str(value, depth)
-        old = to_str(_elem.get('old_value'), depth)
-        new = to_str(_elem.get('new_value'), depth)
+        string = to_str(value, ident_size)
+        old = to_str(_elem.get('old_value'), ident_size)
+        new = to_str(_elem.get('new_value'), ident_size)
         if type == 'add':
-            tree.append(f"{space}{NEW}{key}: {string}")
+            tree.append(f"{deep_ident}+ {key}: {string}")
         if type == 'remove':
-            tree.append(f"{space}{OLD}{key}: {string}")
+            tree.append(f"{deep_ident}- {key}: {string}")
         if type == 'unchanged':
-            tree.append(f"{space}{EMPTY}{key}: {string}")
+            tree.append(f"{deep_ident}  {key}: {string}")
         if type == 'nested':
             tree.append(
-                f"{space}{EMPTY}{key}: {make_stylish(_elem, depth + 4)}")
+                f"{deep_ident}  {key}: {make_stylish(_elem, ident_size)}")
         if type == 'modified':
-            tree.append(f"{space}{OLD}{key}: {old}")
-            tree.append(f"{space}{NEW}{key}: {new}")
+            tree.append(f"{deep_ident}- {key}: {old}")
+            tree.append(f"{deep_ident}+ {key}: {new}")
     format = "\n".join(tree)
-    end_space = SEPARATOR * (depth - 2)
-    return f"{{\n{format}\n{end_space}}}"
+    return f"{{\n{format}\n{end_ident}}}"
 
 
-def to_str(value, depth=2):
+def to_str(value, depth):
+    ident_size = depth + 1
+    ident = ident_size * 4 - 2
+    deep_ident = " " * ident
+    end_ident = " " * (ident - 2)
     rows = []
     if value is None:
         return 'null'
@@ -41,11 +45,9 @@ def to_str(value, depth=2):
     if isinstance(value, int):
         return value
     if isinstance(value, dict):
-        space = SEPARATOR * (depth + 4)
         for _key, _row in value.items():
-            format = to_str(_row, depth + 4)
-            rows.append(f"{space}{EMPTY}{_key}: {format}")
+            rows.append(
+                f"{deep_ident}  {_key}: {to_str(_row, ident_size)}")
         format = "\n".join(rows)
-        end_space = SEPARATOR * (depth + 2)
-        return f"{{\n{format}\n{end_space}}}"
+        return f"{{\n{format}\n{end_ident}}}"
     return f"{value}"
