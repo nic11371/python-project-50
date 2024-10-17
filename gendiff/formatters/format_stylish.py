@@ -1,12 +1,11 @@
 def make_ident(depth):
-    return depth * " "
+    size = depth + 1
+    ident = size * 4 - 2
+    return " " * ident, " " * (ident - 2), size
 
 
 def make_stylish(performance, depth=0):
-    ident_size = depth + 1
-    ident = ident_size * 4 - 2
-    deep_ident = " " * ident
-    end_ident = " " * (ident - 2)
+    deep_ident, end_ident, ident_size = make_ident(depth)
     tree = []
     children = performance.get('children')
     for _elem in children:
@@ -33,10 +32,7 @@ def make_stylish(performance, depth=0):
 
 
 def to_str(value, depth):
-    ident_size = depth + 1
-    ident = ident_size * 4 - 2
-    deep_ident = " " * ident
-    end_ident = " " * (ident - 2)
+    deep_ident, end_ident, ident_size = make_ident(depth)
     rows = []
     if value is None:
         return 'null'
