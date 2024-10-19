@@ -1,6 +1,5 @@
 def make_ident(depth):
-    size = depth + 1
-    ident = size * 4 - 2
+    ident = (depth + 1) * 4 - 2
     return " " * ident, " " * (ident - 2)
 
 
