@@ -1,6 +1,6 @@
-from gendiff.formatters.format_stylish import make_stylish
-from gendiff.formatters.format_plain import make_plain
-from gendiff.formatters.format_json import make_json
+from gendiff.formatters.stylish import make_stylish
+from gendiff.formatters.plain import make_plain
+from gendiff.formatters.json import make_json
 from gendiff.exception import FormatError
 
 
