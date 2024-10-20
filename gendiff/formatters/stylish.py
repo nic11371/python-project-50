@@ -2,6 +2,10 @@ def make_ident(depth):
     return " " * (depth * 4)
 
 
+def build_ident(symbol=" "):
+    return f"  {symbol} "
+
+
 def make_stylish(performance, depth=0):
     deep_ident = make_ident(depth)
     tree = []
@@ -14,17 +18,18 @@ def make_stylish(performance, depth=0):
         old = to_str(_elem.get('old_value'), depth + 1)
         new = to_str(_elem.get('new_value'), depth + 1)
         if type == 'add':
-            tree.append(f"{deep_ident}  + {key}: {string}")
+            tree.append(f"{deep_ident}{build_ident('+')}{key}: {string}")
         if type == 'remove':
-            tree.append(f"{deep_ident}  - {key}: {string}")
+            tree.append(f"{deep_ident}{build_ident('-')}{key}: {string}")
         if type == 'unchanged':
-            tree.append(f"{deep_ident}    {key}: {string}")
+            tree.append(f"{deep_ident}{build_ident()}{key}: {string}")
         if type == 'nested':
             tree.append(
-                f"{deep_ident}    {key}: {make_stylish(_elem, depth + 1)}")
+                f"{deep_ident}{build_ident()}{key}: {make_stylish(
+                    _elem, depth + 1)}")
         if type == 'modified':
-            tree.append(f"{deep_ident}  - {key}: {old}")
-            tree.append(f"{deep_ident}  + {key}: {new}")
+            tree.append(f"{deep_ident}{build_ident('-')}{key}: {old}")
+            tree.append(f"{deep_ident}{build_ident('+')}{key}: {new}")
     format = "\n".join(tree)
     return f"{{\n{format}\n{deep_ident}}}"
 
@@ -41,7 +46,7 @@ def to_str(value, depth):
     if isinstance(value, dict):
         for _key, _row in value.items():
             rows.append(
-                f"{deep_ident}    {_key}: {to_str(_row, depth + 1)}")
+                f"{deep_ident}{build_ident()}{_key}: {to_str(_row, depth + 1)}")
         format = "\n".join(rows)
         return f"{{\n{format}\n{deep_ident}}}"
     return f"{value}"
