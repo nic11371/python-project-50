@@ -24,9 +24,9 @@ def make_stylish(performance, depth=0):
         if type == 'unchanged':
             tree.append(f"{deep_ident}{build_ident()}{key}: {string}")
         if type == 'nested':
+            ident = build_ident()
             tree.append(
-                f"{deep_ident}{build_ident()}{key}: {make_stylish(
-                    _elem, depth + 1)}")
+                f"{deep_ident}{ident}{key}: {make_stylish(_elem, depth + 1)}")
         if type == 'modified':
             tree.append(f"{deep_ident}{build_ident('-')}{key}: {old}")
             tree.append(f"{deep_ident}{build_ident('+')}{key}: {new}")
