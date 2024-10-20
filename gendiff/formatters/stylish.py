@@ -1,6 +1,5 @@
 def make_ident(depth):
-    return  " " * (depth * 4 - 2)
-    # return " " * ident, " " * (ident - 2)
+    return " " * (depth * 4 - 2)
 
 
 def make_stylish(performance, depth=0):
